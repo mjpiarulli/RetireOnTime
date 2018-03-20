@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="Scripts/rzslider.min.css" />
+    <link rel="stylesheet" href="Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="Content/rot.css"/>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+<div ng-app="app" id="dashboard">
+    <div class="container">
+        <div class="widgets-container">
+            <div class="flex-container">
+                <div class="dashboard-widget">
+                    <div ng-controller="LayoutCtrl as vm">
+                        <div class="widget-inner">
+                            <header class="widget-header">
+                                <h3 class="widget-header">RetireOnTime</h3>
+                                <a href="#">Back to main</a>
+                                <br />
+                                <br />
+                                <a href="#!/editGoals">Edit Goals</a>
+                                <br />
+                                <a href ng-click="vm.showImproveModal()">Improve</a>
+                                <br />
+                                <a href ng-click="vm.showBreakdownModal()">Breakdown</a>
+                                <br />
+                                <a href ng-click="vm.showDetailModal()">Details</a>
+                                <br />
+                                <br />
+                            </header>
+                        </div>
+                        <script type="text/ng-template" id="improveModal.html">
+                            <div class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">Improve Your Retirement Income Projection</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>By contributing an additional monthly amount of ${{vm.slider.value}}</p>
+                                            <div>
+                                                <rzslider rz-slider-model="vm.slider.value" rz-slider-options="vm.slider.options"></rzslider>
+                                            </div>
+                                            <p>You could increase your projected monthly retirement income</p>
+                                            <h1>From {{vm.oldAmount}} to {{vm.newAmount}}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </script>
+                        <script type="text/ng-template" id="breakdownModal.html">
+                            <div class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">Retirement Breakdown</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h3>Plans</h3>
+
+                                            <table>
+                                                <tr>
+                                                    <th>Plan</th>
+                                                    <th>Balance</th>
+                                                    <th>As of Date</th>
+                                                    <th>Average Monthly Income</th>
+                                                </tr>
+                                                <tr ng-repeat="plan in vm.plans">
+                                                    <td>{{plan.name}}</td>
+                                                    <td>{{plan.balance}}</td>
+                                                    <td>{{plan.asOfDate}}</td>
+                                                    <td>{{plan.averageMonthlyIncome}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Total</b></td>
+                                                    <td><b>{{vm.planTotal.balance}}</b></td>
+                                                    <td></td>
+                                                    <td>{{vm.planTotal.averageMonthlyIncome}}</td>
+                                                </tr>
+                                            </table>
+
+                                            <h3>Other Assets</h3>
+                                            <p>
+                                                No other assets outside of your current plan have been accounted
+                                                for in this projection.
+                                            </p>
+
+                                            <h3>Other Income Sources</h3>
+                                            <table>
+                                                <tr>
+                                                    <th>Source</th>
+                                                    <th>Average Monthly Income</th>
+                                                </tr>
+                                                <tr ng-repeat="otherIncomeSource in vm.otherIncomeSources">
+                                                    <td>{{otherIncomeSource.name}}</td>
+                                                    <td>{{otherIncomeSource.averageMonthlyIncome}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Total</b></td>
+                                                    <td><b>{{vm.otherIncomeSourceTotal}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Total projected monthly income during retirement</b></td>
+                                                    <td><b>{{vm.totalRetirementIncomePerMonth}}</b></td>
+                                                </tr>
+                                            </table>
+                                            <p>
+                                                You can include additional assets and sources of income in your
+                                                projection by conducting a My Retirement Analysis.
+                                                Click below to get started.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </script>
+                        <script type="text/ng-template" id="detailModal.html">
+                            <div class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">My Retirement Projection Details</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h3>Assumptions Before Retirement</h3>
+                                            <ul>
+                                                <li>Current contributions will continue until retirement</li>
+                                                <li>Current contribution will increase each year at {{vm.currentContributionIncreasePercent}}</li>
+                                                <li>Your current plan's asset allocation will apply to all assets</li>
+                                                <li>Effective income tax rate of {{vm.effectiveIncomeTaxRate}}</li>
+                                            </ul>
+                                            <hr />
+                                            <h3>Assumptions During Retirement</h3>
+                                            <div><b>Investment portfolio:</b> {{vm.investmentPortfolio}}</div>
+                                            <div><b>Cash Equivalents:</b> {{vm.cashEquivalents}}</div>
+                                            <div><b>Inter-Term Govt Bond:</b> {{vm.interTermGovtBond}}</div>
+                                            <div><b>Long-Term Govt Bond:</b> {{vm.longTermGovtBond}}</div>
+                                            <div><b>Corporate Bonds:</b> {{vm.corporateBonds}}</div>
+                                            <div><b>Corporate Bonds:</b> {{vm.corporateBonds}}</div>
+                                            <div><b>Large Value Stocks:</b> {{vm.largeValueStocks}}</div>
+                                            <div><b>Large Growth Stocks:</b> {{vm.largeGrowthStocks}}</div>
+                                            <div><b>International Stocks:</b> {{vm.internationalStocks}}</div>
+                                            <div><b>International Bonds:</b> {{vm.internationalBonds}}</div>
+                                            <div><b>Average annual return:</b> {{vm.averageAnnualReturn}}</div>
+                                            <div><b>Standard deviation (risk):</b> {{vm.standardDeviation}}</div>
+                                            <br />
+                                            <div><b>Effective income tax rate:</b> {{vm.effectiveIncomeTaxRate}}</div>
+                                            <div><b>Inflation rate:</b> {{vm.inflation}}</div>
+                                            <div><b>First year retirement plan withdrawal:</b> {{vm.firstYearPlanWithdrawl}}</div>
+                                            <div><b>Retirement confidence leve:</b> {{vm.confidencePercent}}</div>
+                                            <div>Illustrates probability of success in retirement simulations</div>
+
+                                            <hr />
+                                            <p>
+                                                This analysis is based upon assumptions about the future that are
+                                                impossible to predict. In this analysis, some of this uncertainty
+                                                is modeled by using Monte Carlo simulations. {{vm.simulations}}
+                                                simulations are performed on your retirement portfolio to determine
+                                                the largest withdrawal that allows you to be {{vm.confidencePercent}}
+                                                confident that your assets will last until age {{vm.maxAge}}.
+                                                The results show that you could sustain a withdrawal of
+                                                {{vm.monthlyWithdrawl}} per month, increasing annually at {{vm.inflation}}
+                                                inflation to maintain spending power. The {{vm.monthlyWithdrawl}} per
+                                                month is in today's dollars, after tax.
+                                                Taxes may be due upon portfolio withdrawals.
+                                            </p>
+                                            <p>
+                                                This analysis is for illustrative purposes only.
+                                                Past performance of an investment is not an indication of future returns.
+                                                The standard deviation for an asset class represents its estimated average
+                                                investment risk.
+                                            </p>
+                                            <p>
+                                                Additional monthly contribution amounts used for retirement income
+                                                modeling do not reflect contribution limitations imposed by the plan.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </script>
+                    </div>
+                    <div class="widget-body">
+                        <div ng-view></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+   
+</div>
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
+    <script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/services/RotService.js"></script>
+    <script src="app/controllers/LayoutCtrl.js"></script>
+    <script src="app/controllers/BreakdownCtrl.js"></script>
+    <script src="app/controllers/DetailCtrl.js"></script>
+    <script src="app/controllers/EditGoalsCtrl.js"></script>
+    <script src="app/controllers/ImproveCtrl.js"></script>
+    <script src="app/controllers/MainCtrl.js"></script>
+</body>
+</html>

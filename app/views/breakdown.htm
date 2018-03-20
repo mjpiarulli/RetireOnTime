@@ -1,0 +1,57 @@
+﻿<div>
+    <h2>Retirement Breakdown</h2>
+    
+    <h3>Plans</h3>
+    
+    <table>
+        <tr>
+            <th>Plan</th>
+            <th>Balance</th>
+            <th>As of Date</th>
+            <th>Average Monthly Income</th>
+        </tr>
+        <tr ng-repeat="plan in vm.plans">
+            <td>{{plan.name}}</td>
+            <td>{{plan.balance}}</td>
+            <td>{{plan.asOfDate}}</td>
+            <td>{{plan.averageMonthlyIncome}}</td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><b>{{vm.planTotal.balance}}</b></td>
+            <td></td>
+            <td>{{vm.planTotal.averageMonthlyIncome}}</td>
+        </tr>
+    </table>
+    
+    <h3>Other Assets</h3>
+    <p>
+        No other assets outside of your current plan have been accounted 
+        for in this projection.
+    </p>
+    
+    <h3>Other Income Sources</h3>
+    <table>
+        <tr>
+            <th>Source</th>
+            <th>Average Monthly Income</th>
+        </tr>
+        <tr ng-repeat="otherIncomeSource in vm.otherIncomeSources">
+            <td>{{otherIncomeSource.name}}</td>
+            <td>{{otherIncomeSource.averageMonthlyIncome}}</td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><b>{{vm.otherIncomeSourceTotal}}</b></td>
+        </tr>
+        <tr>
+            <td><b>Total projected monthly income during retirement</b></td>
+            <td><b>{{vm.totalRetirementIncomePerMonth}}</b></td>
+        </tr>
+    </table>
+    <p>
+        You can include additional assets and sources of income in your 
+        projection by conducting a My Retirement Analysis. 
+        Click below to get started.
+    </p>
+</div>

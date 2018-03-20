@@ -1,0 +1,55 @@
+﻿<div>
+    <h2>My Retirement Projection Details</h2>
+    <h3>Assumptions Before Retirement</h3>
+    <ul>
+        <li>Current contributions will continue until retirement</li>
+        <li>Current contribution will increase each year at {{vm.currentContributionIncreasePercent}}</li>
+        <li>Your current plan's asset allocation will apply to all assets</li>
+        <li>Effective income tax rate of {{vm.effectiveIncomeTaxRate}}</li>
+    </ul>
+    <hr/>
+    <h3>Assumptions During Retirement</h3>
+    <div><b>Investment portfolio:</b> {{vm.investmentPortfolio}}</div>
+    <div><b>Cash Equivalents:</b> {{vm.cashEquivalents}}</div>
+    <div><b>Inter-Term Govt Bond:</b> {{vm.interTermGovtBond}}</div>
+    <div><b>Long-Term Govt Bond:</b> {{vm.longTermGovtBond}}</div>
+    <div><b>Corporate Bonds:</b> {{vm.corporateBonds}}</div>
+    <div><b>Corporate Bonds:</b> {{vm.corporateBonds}}</div>
+    <div><b>Large Value Stocks:</b> {{vm.largeValueStocks}}</div>
+    <div><b>Large Growth Stocks:</b> {{vm.largeGrowthStocks}}</div>
+    <div><b>International Stocks:</b> {{vm.internationalStocks}}</div>
+    <div><b>International Bonds:</b> {{vm.internationalBonds}}</div>
+    <div><b>Average annual return:</b> {{vm.averageAnnualReturn}}</div>
+    <div><b>Standard deviation (risk):</b> {{vm.standardDeviation}}</div>
+    <br/>
+    <div><b>Effective income tax rate:</b> {{vm.assumedEffectiveIncomeTaxRate}}</div>
+    <div><b>Inflation rate:</b> {{vm.inflation}}</div>
+    <div><b>First year retirement plan withdrawal:</b> {{vm.firstYearPlanWithdrawal}}</div>
+    <div><b>Retirement confidence leve:</b> {{vm.confidencePercent}}</div>
+    <div>Illustrates probability of success in retirement simulations</div>
+    
+    <hr/>
+    <p>
+        This analysis is based upon assumptions about the future that are 
+        impossible to predict. In this analysis, some of this uncertainty 
+        is modeled by using Monte Carlo simulations. {{vm.simulations}} 
+        simulations are performed on your retirement portfolio to determine 
+        the largest withdrawal that allows you to be {{vm.confidencePercent}} 
+        confident that your assets will last until age {{vm.maxAge}}. 
+        The results show that you could sustain a withdrawal of 
+        {{vm.monthlyWithdrawal}} per month, increasing annually at {{vm.inflation}} 
+        inflation to maintain spending power. The {{vm.monthlyWithdrawal}} per 
+        month is in today's dollars, after tax. 
+        Taxes may be due upon portfolio withdrawals.
+    </p>
+    <p>
+        This analysis is for illustrative purposes only.
+        Past performance of an investment is not an indication of future returns.
+        The standard deviation for an asset class represents its estimated average
+        investment risk.
+    </p>
+    <p>
+        Additional monthly contribution amounts used for retirement income 
+        modeling do not reflect contribution limitations imposed by the plan.
+    </p>
+</div>
